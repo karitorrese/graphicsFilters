@@ -16,6 +16,7 @@ setup = () => {
         confTheta.push(random(0, 360));
     }
 
+    //Extra implementation of sliders
     sliderOne = createSlider(2, 6, 2);
     sliderOne.position(50, 20);
     sliderOne.style('width', '80px');
@@ -47,10 +48,13 @@ confetti = () => {
         pop();
     }
     for (var j=0; j<confLocs.length; j++){
+        //Animating the confetti 
         push();
         confLocs[j].y += 1;
         confTheta[j] += 20;
         pop();
+        //if it reached the middle of coordinate system, 
+        //confetti should start at the top of the world
         if(confLocs[j].y > 0){
             confLocs[j].y = -800;
         }
@@ -58,13 +62,13 @@ confetti = () => {
 }
 
 boxes = () => {
-    //grid of boxes
 
+    //grid of boxes
     for (let x=-400; x <= 400; x +=50){
         for (let z=-400; z <= 400; z +=50){
         push();
         
-        ////slider affects speed of the movement of the boxes
+        //slider affects speed of the movement of the boxes
         slider2 = sliderTwo.value();
 
         //slider affects height of boxes
@@ -72,18 +76,21 @@ boxes = () => {
 
         var distance;
         var length;
+        //distance from the centre of the coordinate system using its x and z
         distance = dist(0,0,x, z) + frameCount * slider2;
-        //100 to 300 using the sin()
+        //100 to 300 using sin()
         length = (sin(distance)+1)/2 * (100 * slider1) + 100;
 
         
         length += 25 * slider1;
-
+        
+        //draw boxes
         normalMaterial();
         stroke(0);
         strokeWeight(2);
         translate(x, 0, z);  
         box(50,length,50);
+
         pop(); 
         }
     }
